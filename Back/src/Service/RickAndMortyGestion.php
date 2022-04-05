@@ -34,6 +34,23 @@ class RickAndMortyGestion{
         return $this->repository->findById($id);
     }
 
+    public function addProduct($data){
+        $product = new Product();
+        $product->setName($data['name'])
+        ->setPrice($data['price'])
+        ->setQuantity(intval($data['quantity']))
+        ->setImage($data['image']);
+        $this->entityManager->persist($product);
+        $this->entityManager->flush();
+        return $product;
+    }
+
+    public function deleteProduct(Product $product){
+        $this->entityManager->remove($product);
+        $this->entityManager->flush();
+        return true;
+    }
+
     public function addProductToCart(Product $product, int $quantity){
         if($quantity > $product->getQuantity()){
             throw new \Exception("too quantity");

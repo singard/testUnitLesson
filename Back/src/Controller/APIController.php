@@ -25,20 +25,35 @@ class APIController extends AbstractController
         return $this->json($rickAndMortyGestion->findAll());
     }
 
-    #[Route('/cart', name: 'api_cart', methods: ['GET'])]
-    public function cart(Request $request, RickAndMortyGestion $rickAndMortyGestion): Response
+    #[Route('/products', name: 'api_product_add', methods: ['POST'])]
+    public function addProduct(Request $request, RickAndMortyGestion $rickAndMortyGestion): Response
     {
-        return $this->json($rickAndMortyGestion->findCart());
+        $data = json_decode($request->getContent(), true);
+        return $this->json($rickAndMortyGestion->addProduct($data));
     }
-    
+
     #[Route('/products/{product}', name: 'api_product', methods: ['GET'])]
     public function product(Request $request, Product $product ): Response
     {
         return $this->json($product);
     }
 
-    #[Route('/cart/{product}', name: 'api_add_product', methods: ['POST'])]
-    public function addProductToCart(Request $request, RickAndMortyGestion $rickAndMortyGestion, Product $product ): Response
+    #[Route('/products/{product}', name: 'api_product_delete', methods: ['DELETE'])]
+    public function deleteProduct(Request $request, RickAndMortyGestion $rickAndMortyGestion, Product $product): Response
+    {
+        $rickAndMortyGestion->deleteProduct($product);
+        return $this->json(['delete' => 'ok']);
+    }
+
+    #[Route('/cart', name: 'api_cart', methods: ['GET'])]
+    public function cart(Request $request, RickAndMortyGestion $rickAndMortyGestion): Response
+    {
+        return $this->json($rickAndMortyGestion->findCart());
+    }
+    
+    
+    #[Route('/cart/{product}', name: 'api_cart_add_product', methods: ['POST'])]
+    public function addProductToCart(Request $request, RickAndMortyGestion $rickAndMortyGestion, Product $product): Response
     {
         try{
             $data = json_decode($request->getContent(), true);
@@ -50,7 +65,7 @@ class APIController extends AbstractController
         }
     }
 
-    #[Route('/cart/{product}', name: 'api_delete_product', methods: ['DELETE'])]
+    #[Route('/cart/{product}', name: 'api_cart_delete_product', methods: ['DELETE'])]
     public function deleteProductToCart(Request $request, RickAndMortyGestion $rickAndMortyGestion, Product $product ): Response
     {
         $cart = $rickAndMortyGestion->deleteProductFromCart($product);
