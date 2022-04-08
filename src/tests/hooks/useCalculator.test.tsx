@@ -9,6 +9,6 @@ test("show result", () => {
 
   expect(addition("1","1")).toEqual("2");
   expect(substraction("1","1")).toEqual("0");
-  expect(square("9")).toEqual("3");
+  expect(square("9")).toEqual("4");
 
 });
