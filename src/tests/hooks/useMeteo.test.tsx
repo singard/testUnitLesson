@@ -30,4 +30,5 @@ test("load meteo mock", async () => {
   const { container } = render(<App />);
   await waitFor(() => screen.getByText(/Météo actuel/i));
   expect(container.getElementsByTagName("img").length).toBe(1);
+  
 });
