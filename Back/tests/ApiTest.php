@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ApiTest extends WebTestCase
 {
-    public function testApiAddition(): void
+    public function testApiHelloWorld(): void
     {
         $client = static::createClient();
         // Request a specific page
@@ -17,4 +17,9 @@ class ApiTest extends WebTestCase
         $responseData = json_decode($response->getContent(), true);
         $this->assertEquals(['message' => "Hello world"], $responseData);
     }
+   
+
+   
+    
+   
 }
