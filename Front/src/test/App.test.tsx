@@ -178,7 +178,7 @@ beforeEach(() => {
 test('renders have list', () => {
 
   const { container } = render(<App />);
-  const title = screen.getByText(/list/);
+  const title = screen.getByText(/list/i);
   expect(title).toBeInTheDocument();
 
 });
