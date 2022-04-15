@@ -1,24 +1,19 @@
 name: GENERAL CI
 
 on: push
-
-  workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "14.x"
+      - name: Checkout 🛎️
+        uses: actions/checkout@master
 
-      - name: Install dependencies
-        working-directory: ./Front
+      - name: Install 🔧
         run: npm install
 
-      - name: Run test
-        working-directory: ./Front
+      - name: Build 🏗️
+        run: npm run build
+
+      - name: Test 🚨
         run: npm test
